@@ -24,6 +24,7 @@ PYTHON_VERSIONS = ("3", "3.8", "3.9", "3.10", "3.11", "3.12")
 CI_RUN = (
     os.environ.get("JENKINS_URL") or os.environ.get("CI") or os.environ.get("DRONE") is not None
 )
+nox.options.default_venv_backend = None if CI_RUN else "uv"
 PIP_INSTALL_SILENT = CI_RUN is False
 SKIP_REQUIREMENTS_INSTALL = "SKIP_REQUIREMENTS_INSTALL" in os.environ
 EXTRA_REQUIREMENTS_INSTALL = os.environ.get("EXTRA_REQUIREMENTS_INSTALL")
@@ -87,14 +88,12 @@ def _install_requirements(
     install_extras = install_extras or []
     if SKIP_REQUIREMENTS_INSTALL is False:
         # Always have the wheel package installed
-        session.install("--progress-bar=off", "wheel", silent=PIP_INSTALL_SILENT)
+        session.install("wheel", silent=PIP_INSTALL_SILENT)
         if install_coverage_requirements:
-            session.install(
-                "--progress-bar=off", COVERAGE_VERSION_REQUIREMENT, silent=PIP_INSTALL_SILENT
-            )
+            session.install(COVERAGE_VERSION_REQUIREMENT, silent=PIP_INSTALL_SILENT)
 
         if install_salt:
-            session.install("--progress-bar=off", SALT_REQUIREMENT, silent=PIP_INSTALL_SILENT)
+            session.install(SALT_REQUIREMENT, silent=PIP_INSTALL_SILENT)
 
         if install_test_requirements:
             install_extras.append("tests")
@@ -106,8 +105,7 @@ def _install_requirements(
                 "EXTRA_REQUIREMENTS_INSTALL='%s'",
                 EXTRA_REQUIREMENTS_INSTALL,
             )
-            install_command = ["--progress-bar=off"]
-            install_command += [req.strip() for req in EXTRA_REQUIREMENTS_INSTALL.split()]
+            install_command = [req.strip() for req in EXTRA_REQUIREMENTS_INSTALL.split()]
             session.install(*install_command, silent=PIP_INSTALL_SILENT)
 
         if install_source:
