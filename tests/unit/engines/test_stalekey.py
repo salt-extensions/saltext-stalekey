@@ -3,11 +3,12 @@ unit tests for the stalekey engine
 """
 
 import logging
+from unittest.mock import MagicMock
+from unittest.mock import mock_open
+from unittest.mock import patch
 
 import pytest
-
 import salt.engines.stalekey as stalekey
-from tests.support.mock import MagicMock, mock_open, patch
 
 log = logging.getLogger(__name__)
 
@@ -37,7 +38,7 @@ def test__delete_keys():
         }
 
         ret = stalekey._delete_keys(stale_keys, minions)
-        assert ret == {}
+        assert ret == {}  # pylint: disable=use-implicit-booleaness-not-comparison
 
         stale_keys = ["minion1"]
         minions = {
@@ -57,9 +58,7 @@ def test__read_presence():
     expected = (False, {"minion": 1601477127.532849})
     with patch("os.path.exists", return_value=True):
         with patch("salt.utils.files.fopen", mock_open()):
-            with patch(
-                "salt.utils.msgpack.load", MagicMock(return_value=presence_data)
-            ):
+            with patch("salt.utils.msgpack.load", MagicMock(return_value=presence_data)):
                 ret = stalekey._read_presence("presence_file")
                 assert ret == expected
 
