@@ -4,7 +4,7 @@ Salt engine that detects inactive minions and removes their keys
 
 ## Security
 
-If you think you've found a security vulnerability, see
+If you think you have found a security vulnerability, see
 [Salt's security guide][security].
 
 ## User Documentation
@@ -64,11 +64,11 @@ these areas:
 You could also contribute in other ways:
 
 * Writing blog posts
-* Posting on social media about how you used Salt+Stalekey to solve your
+* Posting on social media about how you used Salt + Stalekey to solve your
   problems, including videos
 * Giving talks at conferences
 * Publishing videos
-* Asking/answering questions in IRC, Slack, or email groups
+* Asking/answering questions in IRC, Discord or email groups
 
 Any of these things are super valuable to our community, and we sincerely
 appreciate every contribution!
