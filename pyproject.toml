@@ -48,6 +48,7 @@ content-type = "text/markdown"
 
 [project.urls]
 Homepage = "https://github.com/salt-extensions/saltext-stalekey"
+Documentation = "https://salt-extensions.github.io/saltext-stalekey/"
 Source = "https://github.com/salt-extensions/saltext-stalekey"
 Tracker = "https://github.com/salt-extensions/saltext-stalekey/issues"
 

@@ -7,7 +7,7 @@ author_email: arnold.maxim@gmail.com
 coc_contact: ''
 copyright_begin: 2024
 deploy_docs: rolling
-docs_url: ''
+docs_url: https://salt-extensions.github.io/saltext-stalekey/
 integration_name: ''
 license: apache
 loaders:
