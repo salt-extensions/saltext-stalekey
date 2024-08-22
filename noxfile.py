@@ -436,8 +436,7 @@ def docs_html(session, clean, include_api_docs):
 
 
 @nox.session(name="docs-dev", python="3")
-@nox.parametrize("clean", [False, True])
-def docs_dev(session, clean) -> None:
+def docs_dev(session) -> None:
     """
     Build and serve the Sphinx HTML documentation, with live reloading on file changes, via sphinx-autobuild.
 
@@ -452,10 +451,18 @@ def docs_dev(session, clean) -> None:
         install_extras=["docs", "docsauto"],
     )
 
-    # Launching LIVE reloading Sphinx session
     build_dir = Path("docs", "_build", "html")
-    args = ["--watch", ".", "--open-browser", "docs", str(build_dir)]
-    if clean and build_dir.exists():
+
+    # Allow specifying sphinx-autobuild options, like --host.
+    args = ["--watch", "."] + session.posargs
+    if not any(arg.startswith("--host") for arg in args):
+        # If the user is overriding the host to something other than localhost,
+        # it's likely they are rendering on a remote/headless system and don't
+        # want the browser to open.
+        args.append("--open-browser")
+    args += ["docs", str(build_dir)]
+
+    if build_dir.exists():
         shutil.rmtree(build_dir)
 
     session.run("sphinx-autobuild", *args)
