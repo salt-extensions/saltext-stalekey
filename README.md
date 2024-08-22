@@ -1,6 +1,5 @@
 # Stalekey Salt Engine
 
-
 Salt engine that detects inactive minions and removes their keys
 
 ## Security
@@ -23,34 +22,35 @@ information, but if you'd like to jump right in here's how to get started:
 
 
 ```bash
+# Install uv
+curl -LsSf https://astral.sh/uv/install.sh | sh
+source $HOME/.cargo/env
+
 # Clone the repo
-git clone --origin salt git@github.com:salt-extensions/saltext-stalekey.git
+git clone --origin upstream git@github.com:salt-extensions/saltext-stalekey.git
 
 # Change to the repo dir
 cd saltext-stalekey
 
 # Create a new venv
-python3 -m venv env --prompt saltext-stalekey
-source env/bin/activate
-
-# On mac, you may need to upgrade pip
-python -m pip install --upgrade pip
+uv venv -p 3.10
+source .venv/bin/activate
 
 # On WSL or some flavors of linux you may need to install the `enchant`
 # library in order to build the docs
 sudo apt-get install -y enchant
 
 # Install extension + test/dev/doc dependencies into your environment
-python -m pip install -e '.[tests,dev,docs]'
+uv pip install -e ".[dev,tests,docs]"
 
 # Run tests!
-python -m nox -e tests-3
+nox -e tests-3
 
 # skip requirements install for next time
 export SKIP_REQUIREMENTS_INSTALL=1
 
 # Build the docs, serve, and view in your web browser:
-python -m nox -e docs && (cd docs/_build/html; python -m webbrowser localhost:8000; python -m http.server; cd -)
+nox -e docs-dev
 ```
 
 Writing code isn't the only way to contribute! We value contributions in any of

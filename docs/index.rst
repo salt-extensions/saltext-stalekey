@@ -1,7 +1,9 @@
-``saltext-stalekey``: Integrate Salt with Stalekey
-==================================================
+Salt stalekey engine
+====================
 
 Salt engine that detects inactive minions and removes their keys
+
+The engine :py:mod:`configuration <saltext.stalekey.engines.stalekey>` is quite straightforward.
 
 .. toctree::
   :maxdepth: 2
