@@ -3,3 +3,10 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 This project uses [Semantic Versioning](https://semver.org/) - MAJOR.MINOR.PATCH
 
 # Changelog
+
+## 1.0.2 (2024-08-22)
+
+
+### Added
+
+- Initial extension release
