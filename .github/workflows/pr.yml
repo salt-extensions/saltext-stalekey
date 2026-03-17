@@ -1,21 +1,23 @@
-name: Pull Request or Push
+---
+name: Pull Request
 
 on:
-  push:
-    branches:
-      - 'main'  # Run on pushes to main
-    tags-ignore:
-      - '*'   # Ignore pushes to tags
   pull_request:
 
 jobs:
   call_central_workflow:
     name: CI
-    uses: salt-extensions/central-artifacts/.github/workflows/ci.yml@main
-    with:
-      deploy-docs: true
+    uses: ./.github/workflows/ci.yml
     permissions:
-      contents: write
+      contents: read
       id-token: write
-      pages: write
       pull-requests: read
+
+  set_resolution:
+    # This step is just so we can make github require this step, to pass checks
+    # on a pull request instead of requiring all
+    name: Set the CI Pipeline Exit Status
+    if: always()
+    needs:
+      - call_central_workflow
+    uses: ./.github/workflows/set-resolution-action.yml

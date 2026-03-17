@@ -104,7 +104,7 @@ def start(interval=3600, expire=604800):
     """
     ck = salt.utils.minions.CkMinions(__opts__)
     presence_file = f"{__opts__['cachedir']}/presence.p"
-    wheel = salt.wheel.WheelClient(__opts__)
+    _wheel = salt.wheel.WheelClient(__opts__)
 
     while True:
         log.debug("Checking for present minions")

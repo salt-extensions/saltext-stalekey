@@ -8,7 +8,8 @@ from unittest.mock import mock_open
 from unittest.mock import patch
 
 import pytest
-import salt.engines.stalekey as stalekey
+
+from saltext.stalekey.engines import stalekey
 
 log = logging.getLogger(__name__)
 
@@ -17,7 +18,7 @@ class MockWheel:
     def __init__(self, *args, **kwargs):
         pass
 
-    def cmd(self, *args, **kwargs):
+    def cmd(self, *_args, **_kwargs):
         return True
 
 
